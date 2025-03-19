@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-jauge</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Styles pour le header */
+        header {
+            background-color: #388e3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Styles pour le menu hamburger */
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Styles pour la navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f8f8;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+
+        nav.open {
+            transform: translateX(0);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        /* Styles pour le contenu principal */
+        .content {
+            padding: 20px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        /* Styles pour le bouton de fermeture */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <h1>Eco-jauge</h1>
+    </header>
+
+    <nav id="nav">
+        <div class="close-btn" onclick="toggleMenu()">×</div>
+        <ul>
+            <li><a href="boutiqueV0.2.html">Boutique</a></li>
+            <li><a href="questionnaireV0.7.html">Questionnaire</a></li>
+            <li><a href="aproposV0.1.html">À propos</a></li>
+            <li><a href="contactV0.2.html">Contact</a></li>
+            <!-- Ajoutez d'autres liens ici -->
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Description du projet -->
+        <p>Bienvenue sur Eco-jauge !</p>
+        <p>Eco-jauge est un projet innovant qui a pour objectif de sensibiliser et aider les utilisateurs à mieux comprendre et réduire leur empreinte carbone. En combinant une interface conviviale avec une montre connectée, Eco-jauge permet de suivre l'impact environnemental de vos actions quotidiennes. Grâce à des fonctionnalités intuitives, vous pourrez facilement calculer et suivre votre empreinte carbone à travers vos déplacements, vos habitudes de consommation, et bien plus encore.</p>
+        <p>Notre vision est de rendre la réduction de l'empreinte carbone accessible à tous et de promouvoir un mode de vie plus durable, en offrant des outils simples et efficaces. Ensemble, faisons un pas de plus vers un avenir plus vert et plus responsable.</p>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav").classList.toggle("open");
+        }
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById("nav");
+            const menuIcon = document.querySelector('.menu-icon');
+            if (!nav.contains(event.target) && !menuIcon.contains(event.target) && nav.classList.contains('open')) {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+</html>

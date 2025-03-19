@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-jauge</title>
+    <style>
+        /* Couleurs axées sur l'écologie */
+        :root {
+            --vert-clair: #e8f5e9;
+            --vert-moyen: #a5d6a7;
+            --vert-fonce: #388e3c;
+            --gris-clair: #f5f5f5;
+            --gris-moyen: #ddd;
+            --texte-principal: #333;
+            --texte-secondaire: #555;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--vert-clair); /* Fond vert clair */
+            color: var(--texte-principal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--vert-fonce); /* Titre en vert foncé */
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        form {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--gris-moyen);
+        }
+
+        .categorie {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid var(--vert-moyen); /* Bordure verte */
+            border-radius: 8px;
+            background-color: var(--gris-clair); /* Fond gris clair */
+            transition: all 0.3s ease; /* Transition douce */
+        }
+
+        .categorie:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: var(--vert-fonce); /* Sous-titres en vert foncé */
+            border-bottom: 2px solid var(--vert-moyen);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        .question h3 {
+            margin-top: 0;
+            color: var(--texte-secondaire);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--texte-principal);
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gris-moyen);
+            border-radius: 4px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: var(--vert-fonce); /* Bouton vert foncé */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #2e7d32; /* Vert un peu plus foncé au survol */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+
+        /* Styles pour le menu hamburger */
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(71, 170, 41);
+        }
+
+        /* Styles pour la navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f8f8;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+
+        nav.open {
+            transform: translateX(0);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+        /* Styles pour le bouton de fermeture */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+
+        <nav id="nav">
+            <div class="close-btn" onclick="toggleMenu()">×</div>
+            <ul>
+                <li><a href="menuV0.2.html">Accueil</a></li>
+                <li><a href="qboutiqueV0.2.html">Boutique</a></li>
+                <li><a href="aproposV0.1.html">À propos</a></li>
+                <li><a href="contactV0.2.html">Contact</a></li>
+                <!-- Ajoutez d'autres liens ici -->
+            </ul>
+        </nav>
+
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <h1>Calculateur d'Empreinte Carbone</h1>
+    </header>
+
+    <nav id="nav">
+         <div class="close-btn" onclick="toggleMenu()">×</div>
+        <ul>
+            <li><a href="menu.html">Accueil</a></li>
+        </ul>
+    </nav>
+
+    <form id="questionnaire">
+        <!-- CATÉGORIE 1 : ALIMENTATION -->
+        <div class="categorie">
+            <h2>🍎 Alimentation</h2>
+            
+            <div class="question">
+                <h3>Consommation de viande :</h3>
+                <label><input type="radio" name="viande" value="0"> Jamais</label>
+                <label><input type="radio" name="viande" value="2"> 1-2 fois/semaine</label>
+                <label><input type="radio" name="viande" value="4"> 3-5 fois/semaine</label>
+                <label><input type="radio" name="viande" value="6"> Quotidienne</label>
+            </div>
+
+            <div class="question">
+                <h3>Consommation de poisson :</h3>
+                <label><input type="radio" name="poisson" value="0"> Jamais</label>
+                <label><input type="radio" name="poisson" value="1"> 1 fois/semaine</label>
+                <label><input type="radio" name="poisson" value="3"> 2-3 fois/semaine</label>
+            </div>
+
+            <div class="question">
+                <h3>Faites-vous attention à consommer des fruits et légumes de saison ? :</h3>
+                <label><input type="radio" name="fruit" value="0"> Jamais</label>
+                <label><input type="radio" name="fruit" value="1"> Parfois</label>
+                <label><input type="radio" name="fruit" value="2"> Souvent</label>
+                <label><input type="radio" name="fruit" value="3"> Toujours</label>
+            </div>
+
+            <div class="question">
+                <h3>Quelle est votre consommation par semaine de sodas, jus de fruits, etc. ? (L/semaine)</h3>
+                <label>
+                    <input type="number" name="soda" min="0" step="1">
+                </label>
+            </div>
+        </div>
+
+        <!-- CATÉGORIE 2 : TRANSPORT -->
+        <div class="categorie">
+            <h2>🚗 Transport</h2>
+            
+            <div class="question">
+                <h3>Kilométrage quotidien en voiture :</h3>
+                <label>
+                    <input type="number" name="km_voiture" min="0" step="100">
+                </label>
+            </div>
+
+            <div class="question">
+                <h3>Avez vous pris l'avion dans les 3 dernières années ? </h3>
+                <label><input type="radio" name="avionan" value="0"> Non</label>
+                <label><input type="radio" name="avionan" value="1"> Oui</label>
+            </div>
+
+            <div class="question">
+                <h3>Sur une année, combien d'heures voyagez-vous sur des vols de moins de 2h (court-courrier) ? </h3>
+                <label>
+                    <input type="number" name="avioncourt" min="0" step="1">
+                </label>
+            </div>
+
+            <div class="question">
+                <h3>Sur une année, combien d'heures voyagez-vous sur des vols entre 2 et 6 heures (moyen-courrier) ? </h3>
+                <label>
+                    <input type="number" name="avionmoyen" min="0" step="1">
+                </label>
+            </div>
+
+            <div class="question">
+                <h3>Sur une année, combien d'heures voyagez-vous sur des vols de plus de 6h (long-courrier) ? </h3>
+                <label>
+                    <input type="number" name="avionlong" min="0" step="1">
+                </label>
+            </div>
+
+            <div class="question">
+                <h3>Utilisez-vous un scooter ou une moto ? </h3>
+                <label><input type="radio" name="deuxroues" value="0"> Non</label>
+                <label><input type="radio" name="deuxroues" value="1"> Oui</label>
+            </div>
+
+            <div class="question">
+                <h3>Quels transports en commun utilisez-vous régulièrement (au moins une fois par mois) ? </h3>
+                <label><input type="radio" name="transportcomun" value="0"> Bus</label>
+                <label><input type="radio" name="transportcomun" value="1"> Autocar</label>
+                <label><input type="radio" name="transportcomun" value="2"> Transport sur rail (métro, tram...)</label>
+            </div>
+        </div>
+
+        <!-- CATÉGORIE 3 : LOGEMENT -->
+        <div class="categorie">
+            <h2>🏠 Logement</h2>
+
+            <div class="question">
+                <h3>Dans quel type de logement vivez-vous ?</h3>
+                <label><input type="radio" name="logementtype" value="1"> Maison</label>
+                <label><input type="radio" name="logementtype" value="2"> Appartement</label>
+            </div>
+            
+            <div class="question">
+                <h3>Surface du logement (m²) :</h3>
+                <label>
+                    <input type="number" name="surface" min="0">
+                </label>
+            </div>
+
+            <div class="question">
+                <h3>Type d'énergie principale :</h3>
+                <label><input type="radio" name="energie" value="2"> Gaz</label>
+                <label><input type="radio" name="energie" value="1"> Électricité</label>
+                <label><input type="radio" name="energie" value="3"> Fioul</label>
+            </div>
+        </div>
+
+        <!-- CATÉGORIE 4 : CONSOMMATION -->
+        <div class="categorie">
+            <h2>🛍️ Consommation</h2>
+            
+            <div class="question">
+                <h3>Fréquence d'achat technologique :</h3>
+                <label><input type="radio" name="tech" value="1"> 1 appareil/an</label>
+                <label><input type="radio" name="tech" value="3"> 2-3 appareils/an</label>
+                <label><input type="radio" name="tech" value="5"> +5 appareils/an</label>
+            </div>
+
+            <div class="question">
+                <h3>Fréquence d'achat de vêtements :</h3>
+                <label><input type="radio" name="habille" value="1"> 1 vêtement/an</label>
+                <label><input type="radio" name="habille" value="3"> 2-3 vêtement/an</label>
+                <label><input type="radio" name="habille" value="5"> +5 vêtements/an</label>
+            </div>
+        </div>
+
+        <!-- CATÉGORIE 5 : ÉNERGIE SUPPLÉMENTAIRE -->
+        <div class="categorie">
+            <h2>⚡ Énergie</h2>
+            <div class="question">
+                <label>Consommation électrique mensuelle (kWh) :
+                    <input type="number" name="kwh" min="0">
+                </label>
+            </div>
+        </div>
+
+        <button type="button" onclick="calculerEmpreinte()">Calculer</button>
+    </form>
+
+        <!-- Pied de page -->
+    <footer style="text-align: center; padding: 20px; margin-top: auto; background-color: var(--vert-moyen); color: white;">
+        <p>Calculateur d'Empreinte Carbone - &copy; 2025</p>
+    </footer>
+    <script>
+        function calculerEmpreinte() {
+            let empreinte = 8900; // Base de 8.9 tonnes CO2e/an convertie en kg
+
+            // ---------------------------------------------------------------------
+            // CATÉGORIE 1 : ALIMENTATION
+            // ---------------------------------------------------------------------
+            const viande = parseInt(document.querySelector('input[name="viande"]:checked')?.value || 0);
+            const poisson = parseInt(document.querySelector('input[name="poisson"]:checked')?.value || 0);
+            const fruit = parseInt(document.querySelector('input[name="fruit"]:checked')?.value || 0);
+            const soda = parseInt(document.querySelector('input[name="soda"]')?.value || 0);
+
+            // Ajustements en kg CO2e
+            empreinte += viande * 50; // Estimation grossière
+            empreinte += poisson * 30; // Estimation grossière
+            
+            switch (fruit) {
+                case 0: empreinte += 18; break;
+                case 1: empreinte -= 18; break;
+                case 2: empreinte -= 37; break;
+                case 3: empreinte -= 55; break;
+            }
+
+            empreinte += soda * 36;
+
+            // ---------------------------------------------------------------------
+            // CATÉGORIE 2 : TRANSPORT
+            // ---------------------------------------------------------------------
+            const kmVoiture = parseInt(document.querySelector('input[name="km_voiture"]')?.value || 0);
+            const avionAn = document.querySelector('input[name="avionan"]:checked')?.value;
+            const avionCourt = parseInt(document.querySelector('input[name="avioncourt"]')?.value || 0);
+            const avionMoyen = parseInt(document.querySelector('input[name="avionmoyen"]')?.value || 0);
+            const avionLong = parseInt(document.querySelector('input[name="avionlong"]')?.value || 0);
+            const deuxRoues = document.querySelector('input[name="deuxroues"]:checked')?.value;
+            const transportComun = document.querySelector('input[name="transportcomun"]:checked')?.value;
+
+            // Ajustements en kg CO2e
+            empreinte += kmVoiture * 0.2; // 0.2 kg CO2e par km (estimation)
+            
+            if (avionAn === "1") {
+                empreinte += 312;
+            } else if (avionAn === "0") {
+                empreinte -= 312;
+            }
+            
+            empreinte += avionCourt * 119;
+            empreinte += avionMoyen * 101;
+            empreinte += avionLong * 104;
+
+            if (deuxRoues === "1") {
+                empreinte += 578;
+            } else if (deuxRoues === "0") {
+                empreinte -= 578;
+            }
+
+            if (transportComun === "0") {
+                empreinte -= 77;
+            } else if (transportComun === "1") {
+                empreinte += 77;
+            } else if (transportComun === "2") {
+                empreinte += 17;
+            }
+
+            // ---------------------------------------------------------------------
+            // CATÉGORIE 3 : LOGEMENT
+            // ---------------------------------------------------------------------
+            const logementType = document.querySelector('input[name="logementtype"]:checked')?.value;
+            const surface = parseInt(document.querySelector('input[name="surface"]')?.value || 0);
+            const energie = document.querySelector('input[name="energie"]:checked')?.value;
+
+            // Ajustements en kg CO2e
+            if (logementType === "1") {
+                empreinte += 1100;
+            } else if (logementType === "2") {
+                empreinte -= 1100;
+            }
+
+            //Estimation de la surface
+            empreinte += surface*1.5;
+
+            // ---------------------------------------------------------------------
+            // CATÉGORIE 4 : CONSOMMATION
+            // ---------------------------------------------------------------------
+            const tech = parseInt(document.querySelector('input[name="tech"]:checked')?.value || 0);
+            const habille = parseInt(document.querySelector('input[name="habille"]:checked')?.value || 0);
+
+            // Ajustements en kg CO2e
+            empreinte += tech * 200;
+            empreinte += habille * 50;
+
+            // ---------------------------------------------------------------------
+            // CATÉGORIE 5 : ÉNERGIE
+            // ---------------------------------------------------------------------
+            const kwh = parseInt(document.querySelector('input[name="kwh"]')?.value || 0);
+            empreinte += kwh * 0.071;
+
+            let empreinteTonnes = empreinte / 1000;
+
+            alert(`Votre empreinte estimée : ${empreinteTonnes.toFixed(2)} tonnes CO2e/an`);
+        }
+
+         function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("open");
+        }
+
+         // Fermer le menu si on clique en dehors
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById("nav");
+            const menuIcon = document.querySelector('.menu-icon');
+            if (!nav.contains(event.target) && !menuIcon.contains(event.target) && nav.classList.contains('open')) {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+</html>
