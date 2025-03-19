@@ -13,7 +13,7 @@
         }
 
         header {
-            background-color: #388e3c;
+            background-color: #90a05d;
             color: white;
             padding: 20px;
             text-align: center;
@@ -26,6 +26,20 @@
             left: 20px;
             font-size: 30px;
             cursor: pointer;
+        }
+
+        .header-title {
+            display: flex;
+            justify-content: center; /* Centre le texte */
+            align-items: center; /* Aligne verticalement */
+        }
+
+        .brand {
+            position: absolute; /* Positionne Eco-Jauge en haut à droite */
+            top: 10px; /* Ajuste la position verticale */
+            right: 20px; /* Ajuste la position horizontale */
+            font-size: 16px; /* Taille de police plus petite */
+            color: white;
         }
 
         nav {
@@ -109,63 +123,68 @@
         }
 
         .buy-button:hover {
-            background-color: #2e7d32;
-        }
+           background-color:#2e7d32; 
+       }
 
-        /* Nouveau style pour le bouton de fermeture */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #333;
-        }
+       /* Nouveau style pour le bouton de fermeture */
+       .close-btn {
+           position:absolute; 
+           top :10 px; 
+           right :10 px; 
+           font-size :24 px; 
+           cursor:pointer; 
+           color:#333; 
+       }
     </style>
 </head>
 <body>
     <header>
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
-        <h1>Eco-jauge - Boutique</h1>
+        
+        <div class="header-title">
+          <h1>Boutique</h1>
+          <span class="brand">Eco-Jauge</span> <!-- Eco-Jauge en haut à droite -->
+      </div>
     </header>
 
     <nav id="nav">
-        <div class="close-btn" onclick="toggleMenu()">×</div>
-        <ul>
-            <li><a href="menuV0.2.html">Accueil</a></li>
-            <li><a href="questionnaireV0.7.html">Questionnaire</a></li>
-            <li><a href="aproposV0.1.html">À propos</a></li>
-            <li><a href="contactV0.2.html">Contact</a></li>
-        </ul>
-    </nav>
+         <div class="close-btn" onclick="toggleMenu()">×</div>
+         <ul>
+             <li><a href="menuV0.2.html">Accueil</a></li>
+             <li><a href="questionnaireV0.7.html">Questionnaire</a></li>
+             <li><a href="aproposV0.1.html">À propos</a></li>
+             <li><a href="contactV0.2.html">Contact</a></li>
+         </ul>
+     </nav>
 
     <div class="content">
-        <h2>Notre montre ECO-JAUGE</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="eco-jauge-1.jpg" alt="ECO JAUGE Modèle 1">
-                <h3>ECO JAUGE </h3>
-                <p>Mettre une description type (montre ecolo en bois...)</p>
-                <p>Prix : fixer prix €</p>
-                <button class="buy-button">Acheter</button>
-            </div>
-        </div>
-    </div>
+        <h2>La montre ECO-JAUGE</h2>
+        
+       <div class="product-grid">
+           <div class="product-card">
+               <img src="eco-jauge-1.jpg" alt="ECO JAUGE Modèle 1">
+               <h3>ECO JAUGE </h3>
+               <p>Mettre une description type (montre ecolo en bois...)</p>
+               <p>Prix : fixer prix €</p>
+               <button class="buy-button">Acheter</button>
+           </div>
+       </div>
+   </div>
 
-    <script>
-        function toggleMenu() {
-            const nav = document.getElementById("nav");
-            nav.classList.toggle("open");
-        }
+   <script>
+       function toggleMenu() {
+           const nav = document.getElementById("nav");
+           nav.classList.toggle("open");
+       }
 
-        // Fermer le menu si on clique en dehors
-        document.addEventListener('click', function(event) {
-            const nav = document.getElementById("nav");
-            const menuIcon = document.querySelector('.menu-icon');
-            if (!nav.contains(event.target) && !menuIcon.contains(event.target) && nav.classList.contains('open')) {
-                toggleMenu();
-            }
-        });
-    </script>
+       // Fermer le menu si on clique en dehors
+       document.addEventListener('click', function(event) {
+           const nav = document.getElementById("nav");
+           const menuIcon = document.querySelector('.menu-icon');
+           if (!nav.contains(event.target) && !menuIcon.contains(event.target) && nav.classList.contains('open')) {
+               toggleMenu();
+           }
+       });
+   </script>
 </body>
 </html>

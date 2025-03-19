@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,8 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: var(--vert-clair); /* Fond vert clair */
+            background-color: var(--vert-clair);
+            /* Fond vert clair */
             color: var(--texte-principal);
             line-height: 1.6;
             margin: 0;
@@ -30,9 +32,10 @@
 
         h1 {
             text-align: center;
-            color: var(--vert-fonce); /* Titre en vert foncé */
+            color: var(--vert-fonce);
+            /* Titre en vert foncé */
             margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         form {
@@ -48,10 +51,13 @@
         .categorie {
             margin-bottom: 25px;
             padding: 20px;
-            border: 1px solid var(--vert-moyen); /* Bordure verte */
+            border: 1px solid var(--vert-moyen);
+            /* Bordure verte */
             border-radius: 8px;
-            background-color: var(--gris-clair); /* Fond gris clair */
-            transition: all 0.3s ease; /* Transition douce */
+            background-color: var(--gris-clair);
+            /* Fond gris clair */
+            transition: all 0.3s ease;
+            /* Transition douce */
         }
 
         .categorie:hover {
@@ -60,7 +66,8 @@
         }
 
         h2 {
-            color: var(--vert-fonce); /* Sous-titres en vert foncé */
+            color: var(--vert-fonce);
+            /* Sous-titres en vert foncé */
             border-bottom: 2px solid var(--vert-moyen);
             padding-bottom: 10px;
             margin-bottom: 15px;
@@ -81,7 +88,8 @@
             color: var(--texte-principal);
         }
 
-        input[type="number"], select {
+        input[type="number"],
+        select {
             width: 100%;
             padding: 10px;
             border: 1px solid var(--gris-moyen);
@@ -96,7 +104,8 @@
         }
 
         button {
-            background-color: var(--vert-fonce); /* Bouton vert foncé */
+            background-color: var(--vert-fonce);
+            /* Bouton vert foncé */
             color: white;
             padding: 12px 20px;
             border: none;
@@ -110,7 +119,8 @@
         }
 
         button:hover {
-            background-color: #2e7d32; /* Vert un peu plus foncé au survol */
+            background-color: #2e7d32;
+            /* Vert un peu plus foncé au survol */
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         }
@@ -168,6 +178,7 @@
             color: #333;
             display: block;
         }
+
         /* Styles pour le bouton de fermeture */
         .close-btn {
             position: absolute;
@@ -179,6 +190,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
 
@@ -197,18 +209,11 @@
         <h1>Calculateur d'Empreinte Carbone</h1>
     </header>
 
-    <nav id="nav">
-         <div class="close-btn" onclick="toggleMenu()">×</div>
-        <ul>
-            <li><a href="menu.html">Accueil</a></li>
-        </ul>
-    </nav>
-
     <form id="questionnaire">
         <!-- CATÉGORIE 1 : ALIMENTATION -->
         <div class="categorie">
             <h2>🍎 Alimentation</h2>
-            
+
             <div class="question">
                 <h3>Consommation de viande :</h3>
                 <label><input type="radio" name="viande" value="0"> Jamais</label>
@@ -221,7 +226,9 @@
                 <h3>Consommation de poisson :</h3>
                 <label><input type="radio" name="poisson" value="0"> Jamais</label>
                 <label><input type="radio" name="poisson" value="1"> 1 fois/semaine</label>
+                <label><input type="radio" name="poisson" value="2"> Temps en temps</label>
                 <label><input type="radio" name="poisson" value="3"> 2-3 fois/semaine</label>
+                <label><input type="radio" name="poisson" value="5"> 3 fois ou plus/semaine</label>
             </div>
 
             <div class="question">
@@ -243,14 +250,13 @@
         <!-- CATÉGORIE 2 : TRANSPORT -->
         <div class="categorie">
             <h2>🚗 Transport</h2>
-            
+
             <div class="question">
                 <h3>Kilométrage quotidien en voiture :</h3>
                 <label>
-                    <input type="number" name="km_voiture" min="0" step="100">
+                    <input type="number" name="km_voiture" min="0" step="5">
                 </label>
             </div>
-
             <div class="question">
                 <h3>Avez vous pris l'avion dans les 3 dernières années ? </h3>
                 <label><input type="radio" name="avionan" value="0"> Non</label>
@@ -301,7 +307,7 @@
                 <label><input type="radio" name="logementtype" value="1"> Maison</label>
                 <label><input type="radio" name="logementtype" value="2"> Appartement</label>
             </div>
-            
+
             <div class="question">
                 <h3>Surface du logement (m²) :</h3>
                 <label>
@@ -320,7 +326,7 @@
         <!-- CATÉGORIE 4 : CONSOMMATION -->
         <div class="categorie">
             <h2>🛍️ Consommation</h2>
-            
+
             <div class="question">
                 <h3>Fréquence d'achat technologique :</h3>
                 <label><input type="radio" name="tech" value="1"> 1 appareil/an</label>
@@ -330,9 +336,9 @@
 
             <div class="question">
                 <h3>Fréquence d'achat de vêtements :</h3>
-                <label><input type="radio" name="habille" value="1"> 1 vêtement/an</label>
-                <label><input type="radio" name="habille" value="3"> 2-3 vêtement/an</label>
-                <label><input type="radio" name="habille" value="5"> +5 vêtements/an</label>
+                <label><input type="radio" name="habille" value="1"> 1 vêtement/mois</label>
+                <label><input type="radio" name="habille" value="3"> 2-3 vêtement/mois</label>
+                <label><input type="radio" name="habille" value="5"> +5 vêtements/mois</label>
             </div>
         </div>
 
@@ -341,15 +347,14 @@
             <h2>⚡ Énergie</h2>
             <div class="question">
                 <label>Consommation électrique mensuelle (kWh) :
-                    <input type="number" name="kwh" min="0">
+                    <input type="number" name="kwh" min="0" step="100">
                 </label>
             </div>
         </div>
-
-        <button type="button" onclick="calculerEmpreinte()">Calculer</button>
+        ... <button type="button" onclick="calculerEmpreinte()">Calculer</button>
     </form>
 
-        <!-- Pied de page -->
+    <!-- Pied de page -->
     <footer style="text-align: center; padding: 20px; margin-top: auto; background-color: var(--vert-moyen); color: white;">
         <p>Calculateur d'Empreinte Carbone - &copy; 2025</p>
     </footer>
@@ -367,13 +372,39 @@
 
             // Ajustements en kg CO2e
             empreinte += viande * 50; // Estimation grossière
-            empreinte += poisson * 30; // Estimation grossière
-            
+
+            switch (poisson) {
+                case 0:
+                    empreinte += 0;
+                    break; // Jamais
+                case 1:
+                    empreinte += 30;
+                    break; // 1 fois/semaine
+                case 2:
+                    empreinte += 45;
+                    break; // Temps en temps
+                case 3:
+                    empreinte += 60;
+                    break; // 2-3 fois/semaine
+                case 5:
+                    empreinte += 90;
+                    break; // 3 fois ou plus/semaine
+            }
+
+
             switch (fruit) {
-                case 0: empreinte += 18; break;
-                case 1: empreinte -= 18; break;
-                case 2: empreinte -= 37; break;
-                case 3: empreinte -= 55; break;
+                case 0:
+                    empreinte += 18;
+                    break;
+                case 1:
+                    empreinte -= 18;
+                    break;
+                case 2:
+                    empreinte -= 37;
+                    break;
+                case 3:
+                    empreinte -= 55;
+                    break;
             }
 
             empreinte += soda * 36;
@@ -391,13 +422,13 @@
 
             // Ajustements en kg CO2e
             empreinte += kmVoiture * 0.2; // 0.2 kg CO2e par km (estimation)
-            
+
             if (avionAn === "1") {
                 empreinte += 312;
             } else if (avionAn === "0") {
                 empreinte -= 312;
             }
-            
+
             empreinte += avionCourt * 119;
             empreinte += avionMoyen * 101;
             empreinte += avionLong * 104;
@@ -431,7 +462,7 @@
             }
 
             //Estimation de la surface
-            empreinte += surface*1.5;
+            empreinte += surface * 1.5;
 
             // ---------------------------------------------------------------------
             // CATÉGORIE 4 : CONSOMMATION
@@ -441,7 +472,7 @@
 
             // Ajustements en kg CO2e
             empreinte += tech * 200;
-            empreinte += habille * 50;
+            empreinte += habille * 50 * 12; // Multiplier par 12 car c'est par mois
 
             // ---------------------------------------------------------------------
             // CATÉGORIE 5 : ÉNERGIE
@@ -454,12 +485,12 @@
             alert(`Votre empreinte estimée : ${empreinteTonnes.toFixed(2)} tonnes CO2e/an`);
         }
 
-         function toggleMenu() {
+        function toggleMenu() {
             const nav = document.getElementById("nav");
             nav.classList.toggle("open");
         }
 
-         // Fermer le menu si on clique en dehors
+        // Fermer le menu si on clique en dehors
         document.addEventListener('click', function(event) {
             const nav = document.getElementById("nav");
             const menuIcon = document.querySelector('.menu-icon');
@@ -469,4 +500,5 @@
         });
     </script>
 </body>
+
 </html>
