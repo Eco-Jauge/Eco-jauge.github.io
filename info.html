@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-jauge - Informations personnelles</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #90a05d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f8f8;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+
+        nav.open {
+            transform: translateX(0);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .content {
+            padding: 20px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .info-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .info-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-item h3 {
+            margin-bottom: 5px;
+            color: #388e3c;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <h1>Eco-jauge - Informations personnelles</h1>
+    </header>
+
+    <nav id="nav">
+        <div class="close-btn" onclick="toggleMenu()">×</div>
+        <ul>
+            <li><a href="menu.html">Accueil</a></li>
+            <li><a href="questionnaire.html">Questionnaire</a></li>
+            <li><a href="boutique.html">Boutique</a></li>
+            <li><a href="profil.html">Connexion</a></li>
+            <li><a href="bluetooth.html">Bluetooth</a></li>
+            <li><a href="apropos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+            
+
+        </ul>
+    </nav>
+
+    <div class="content">
+        <div class="info-container">
+            <div class="info-item">
+                <h3>Distance parcourue</h3>
+                <p id="distance">Chargement...</p>
+            </div>
+            <div class="info-item">
+                <h3>Nombre de pas</h3>
+                <p id="steps">Chargement...</p>
+            </div>
+            <div class="info-item">
+                <h3>Calories brûlées</h3>
+                <p id="calories">Chargement...</p>
+            </div>
+            <div class="info-item">
+                <h3>Temps d'activité</h3>
+                <p id="activeTime">Chargement...</p>
+            </div>
+            <div class="info-item">
+                <h3>Empreinte carbone économisée</h3>
+                <p id="carbonSaved">Chargement...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav');
+            nav.classList.toggle('open');
+        }
+
+        async function fetchUserData() {
+            try {
+                let userSto = window.localStorage.getItem("userData");
+                let userData = JSON.parse(userSto);
+                if(!userSto) return document.location.href="./profilV0.1.html";
+                document.getElementById('distance').textContent = userData.distance + ' km';
+                document.getElementById('steps').textContent = userData.steps;
+                document.getElementById('calories').textContent = userData.calories + ' kcal';
+                document.getElementById('activeTime').textContent = userData.activeTime + ' minutes';
+                document.getElementById('carbonSaved').textContent = userData.carbonSaved + ' kg CO2';
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données utilisateur:', error);
+            }
+        }
+
+        fetchUserData();
+    </script>
+</body>
+</html>

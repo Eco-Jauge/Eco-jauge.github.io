@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-jauge - Bluetooth</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Styles pour le header */
+        header {
+            background-color: #90a05d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Styles pour le menu hamburger */
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Styles pour la navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f8f8;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+
+        nav.open {
+            transform: translateX(0);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        /* Styles pour le contenu principal */
+        .content {
+            padding: 20px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        /* Styles pour le bouton de fermeture */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Styles pour le bouton Bluetooth */
+        .bluetooth-button {
+            background-color: #90a05d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .bluetooth-button:hover {
+            background-color: #7a8a4e;
+        }
+
+        /* Styles pour la section de log */
+        .log {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <h1>Eco-jauge - Bluetooth</h1>
+    </header>
+
+    <nav id="nav">
+        <div class="close-btn" onclick="toggleMenu()">×</div>
+        <ul>
+            <li><a href="menu.html">Accueil</a></li>
+            <li><a href="boutique.html">Boutique</a></li>
+            <li><a href="questionnaire.html">Questionnaire</a></li>
+            <li><a href="apropos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="profil.html">Connexion</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h2>Connexion Bluetooth</h2>
+        <p>Connectez votre appareil Bluetooth pour synchroniser vos données avec Eco-jauge.</p>
+        <button id="connectButton" class="bluetooth-button">Connecter un appareil Bluetooth</button>
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav").classList.toggle("open");
+        }
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById("nav");
+            const menuIcon = document.querySelector('.menu-icon');
+            if (!nav.contains(event.target) && !menuIcon.contains(event.target) && nav.classList.contains('open')) {
+                toggleMenu();
+            }
+        });
+
+        const logElement = document.getElementById('log');
+
+        function log(message) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            logElement.appendChild(p);
+        }
+
+        async function connectToBluetooth() {
+            try {
+                log('Recherche d\'appareils Bluetooth...');
+                const device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true,
+                    optionalServices: ['battery_service']
+                });
+
+                log(`Appareil sélectionné : ${device.name || 'Inconnu'} (${device.id})`);
+
+                const server = await device.gatt.connect();
+                log('Connexion réussie au serveur GATT.');
+
+                const service = await server.getPrimaryService('battery_service');
+                const characteristic = await service.getCharacteristic('battery_level');
+                const value = await characteristic.readValue();
+                const batteryLevel = value.getUint8(0);
+                log(`Niveau de batterie : ${batteryLevel}%`);
+                
+                device.addEventListener('gattserverdisconnected', () => {
+                    log('Appareil déconnecté.');
+                });
+                
+            } catch (error) {
+                log(`Erreur : ${error.message}`);
+            }
+        }
+
+        document.getElementById('connectButton').addEventListener('click', connectToBluetooth);
+    </script>
+</body>
+</html>

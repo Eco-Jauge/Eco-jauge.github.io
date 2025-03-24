@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-jauge - Compte</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #90a05d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f8f8;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+
+        nav.open {
+            transform: translateX(0);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .content {
+            padding: 20px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #2e7d32;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <h1>Eco-jauge - Compte</h1>
+    </header>
+
+    <nav id="nav">
+        <div class="close-btn" onclick="toggleMenu()">×</div>
+        <ul>
+            
+            <li><a href="questionnaire.html">Questionnaire</a></li>
+            <li><a href="menu.html">Accueil</a></li>
+            <li><a href="boutique.html">Boutique</a></li>
+            <li><a href="bluetooth.html">Bluetooth</a></li>
+            <li><a href="apropos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+            
+
+        </ul>
+    </nav>
+
+    <div class="content">
+        <div class="form-container">
+            <h2>Créer un compte</h2>
+            <form>
+                <input type="text" placeholder="Nom d'utilisateur" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Mot de passe" required>
+                <input type="password" placeholder="Confirmer le mot de passe" required>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Se connecter</h2>
+            <input type="text" placeholder="Nom d'utilisateur ou Email" required id="input_name">
+            <input type="password" placeholder="Mot de passe" required id="input_pass">
+            <button id="connectBtn">Se connecter</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav');
+            nav.classList.toggle('open');
+        }
+
+        let users = []
+
+        async function fetchUserData() {
+            try {
+                const response = await fetch('user.json');
+                const userData = await response.json();
+                console.log(userData);
+                users=userData;
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données utilisateur:', error);
+            }
+        }
+        fetchUserData();
+
+
+        document.getElementById('connectBtn').addEventListener("click",()=>{
+            for(let user of users){
+                if((user.name===document.getElementById('input_name').value) && (user.pass===document.getElementById('input_pass').value)){
+                    console.log("c'est bon!")
+                    window.localStorage.setItem("userData",JSON.stringify(user))
+                    document.location.href="./infoV0.1.html"
+                }
+            }
+        })
+    </script>
+</body>
+</html>
